@@ -1,0 +1,28 @@
+{
+  "name": "todolistproject",
+  "version": "1.0.0",
+  "description": "Part of The Odin Project path.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DragostinH/ToDoListProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DragostinH/ToDoListProject/issues"
+  },
+  "homepage": "https://github.com/DragostinH/ToDoListProject#readme",
+  "devDependencies": {
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "date-fns": "^2.28.0"
+  }
+}
