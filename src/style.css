@@ -14,9 +14,9 @@
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 4fr;
     margin: 0;
     height: 100vh;
     width: 100vw;
@@ -24,9 +24,7 @@ body {
 }
 
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    grid-column: 1/3;
     padding: 0;
     margin: 0;
     background-color: var(--middle-grey);
@@ -42,9 +40,6 @@ h1 {
 
 
 .sidebar {
-    display: flex;
-    height: 100%;
-    width: 400px;
     background-color: var(--lighter-grey);
 }
 
