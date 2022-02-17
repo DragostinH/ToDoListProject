@@ -7,11 +7,17 @@ import createTodoForm from './createTodoForm';
 const indexPage = (() => {
     // In the main index.js function we save every dom element we will be working with in a variable.
     // This includes the "main" content element, sidebar and header.
+
+    const arrayOfObjects = [];
     const main = document.querySelector('main');
     const header = document.querySelector('header');
     const sidebar = document.querySelector('.sidebar');
     const taskForm = createTodoForm();
 
     main.appendChild(taskForm);
+
+
+
+    // Need to create an algorithm that stores created Tasks as objects into an array
 
 })()
