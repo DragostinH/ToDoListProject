@@ -5,12 +5,17 @@
 }
 
 :root {
-    --almost-black: #212529;
+    /* --almost-black: #212529;
     --dark-grey: #343a40;
     --middle-grey: #495057;
     --light-grey: #6c757d;
     --lighter-grey: #adb5bd;
-    --almost-white: #f8f9fa;
+    --almost-white: #f8f9fa; */
+    --full-white: #fff;
+    --light-grey: #e5e5e5;
+    --good-orange: #fca311;
+    --dark-blue: #14213d;
+    --full-black: #000;
 }
 
 body {
@@ -20,14 +25,14 @@ body {
     margin: 0;
     height: 100vh;
     width: 100vw;
-    background-color: var(--almost-white)
+    background-color: var(--full-white)
 }
 
 header {
     grid-column: 1/3;
     padding: 0;
     margin: 0;
-    background-color: var(--middle-grey);
+    background-color: var(--dark-blue)
 }
 
 h1 {
@@ -40,10 +45,14 @@ h1 {
 
 
 .sidebar {
-    background-color: var(--lighter-grey);
+    background-color: var(--light-grey)
 }
 
 .hide-sidebar{
     width: 0;
     height: auto;
+}
+
+.taskform.hidden{
+    display: none;
 }
