@@ -2,6 +2,7 @@ import addClassToElement from "./addClassToElement";
 import appendMultiple from "./appendMultiple";
 import createAddTaskBtn from "./createAddTaskBtn";
 import createDiv from "./createDiv";
+import createTodoEntry from "./createTodoEntry";
 import formDisplayToggle from "./formToggle";
 
 export default function createTodoForm() {
@@ -11,12 +12,14 @@ export default function createTodoForm() {
     // will include a "Add task" and Cancel buttons
     // Will have a class that helps us hide/show it.
     // Later on will include a title, description, due date and priority
+    const taskList = document.querySelector('.task-list.inbox');
+    const addTaskBtn = document.querySelector('.add-task-btn');
+    let listArray;
     const formContainer = createDiv();
     formContainer.classList.add('form-container');
     const taskForm = document.createElement('form');
-    addClassToElement(taskForm, 'taskform', 'hidden');
+    addClassToElement(taskForm, 'taskform');
     // Create a button that shows the form
-    const addTaskBtn = createAddTaskBtn();
 
 
     // Create a container for the Post Task and Cancel buttons
@@ -42,7 +45,8 @@ export default function createTodoForm() {
     // Wrap the input(textarea) in a label
     textAreaLabel.appendChild(textArea);
 
-    addTaskBtn.innerText = 'Add Task';
+
+    // Add text for buttons:
     postTaskBtn.innerText = 'Post Task';
     cancelTaskBtn.innerText = 'Cancel';
 
@@ -50,13 +54,43 @@ export default function createTodoForm() {
 
 
 
+    // Add an event listener to the 'Post Task' button to push the task into the dom;
+    postTaskBtn.onclick = () => {
+        const currentForm = document.querySelector('.form-container');
+        const todoElement = createTodoEntry(textArea.value).taskContainer;
+
+        currentForm.parentElement.appendChild(todoElement);
+
+
+
+
+
+
+        currentForm.parentElement.removeChild(currentForm);
+        addTaskBtn.style.display = 'block';
+
+    }
+
+
+
+    // Add an event listener to the cancel button so when you press it, it re-adds the 'Add Task' btn and removes the Task Form
+    cancelTaskBtn.onclick = () => {
+        const currentForm = document.querySelector('.form-container');
+        currentForm.parentElement.remove();
+        addTaskBtn.style.display = 'block';
+
+    }
+
+
+
+
     appendMultiple(taskForm, textAreaLabel, formBtnContainer);
-    appendMultiple(formContainer, taskForm, addTaskBtn);
+    appendMultiple(formContainer, taskForm);
 
 
 
 
-    return formContainer;
+    return { formContainer, postTaskBtn, cancelTaskBtn };
 
 
 }

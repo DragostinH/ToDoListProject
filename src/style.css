@@ -14,6 +14,7 @@
     --full-white: #fff;
     --light-grey: #e5e5e5;
     --good-orange: #fca311;
+    --fade-orange: rgba(252, 163, 17, 0.5);
     --dark-blue: #14213d;
     --full-black: #000;
 }
@@ -35,6 +36,12 @@ header {
     background-color: var(--dark-blue)
 }
 
+main {
+    gap: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
 h1 {
     margin: 1em;
 }
@@ -48,11 +55,35 @@ h1 {
     background-color: var(--light-grey)
 }
 
-.hide-sidebar{
+.hide-sidebar {
     width: 0;
     height: auto;
 }
 
-.taskform.hidden{
-    display: none;
+
+
+.task-container{
+    display: flex;
+    gap: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--fade-orange);
 }
+
+.task-checkbox{
+    border-radius: 50%;
+
+}
+
+.task-list{
+    flex: 0.75;
+    padding: 1rem;
+    list-style: none;
+}
+.task-list-entry{
+
+    margin: 1rem 0 1rem 0;
+}
+
+
+
+
