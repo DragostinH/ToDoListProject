@@ -12,8 +12,14 @@ export default function createTodoForm() {
     // will include a "Add task" and Cancel buttons
     // Will have a class that helps us hide/show it.
     // Later on will include a title, description, due date and priority
+    const inputAreaContainer = createDiv();
+    inputAreaContainer.classList.add('task-input-container')
     const taskList = document.querySelector('.task-list.inbox');
     const addTaskBtn = document.querySelector('.add-task-btn');
+    const taskDescription = document.createElement('textarea');
+    taskDescription.id = 'task-description';
+    taskDescription.maxLength = 120;
+    taskDescription.placeholder = 'Description';
     let listArray;
     const formContainer = createDiv();
     formContainer.classList.add('form-container');
@@ -36,14 +42,16 @@ export default function createTodoForm() {
 
     // Save the text area label and text area input in a variable.
     const textArea = document.createElement('textarea');
-    const textAreaLabel = document.createElement('label');
+    textArea.id = 'textArea';
+    textArea.placeholder = 'E.g., Family get together on Sunday..'
+    // const textAreaLabel = document.createElement('label');
 
 
     // Set maximum number of characters inside of the text area
     textArea.maxLength = 240;
 
     // Wrap the input(textarea) in a label
-    textAreaLabel.appendChild(textArea);
+    // textAreaLabel.appendChild(textArea);
 
 
     // Add text for buttons:
@@ -57,7 +65,7 @@ export default function createTodoForm() {
     // Add an event listener to the 'Post Task' button to push the task into the dom;
     postTaskBtn.onclick = () => {
         const currentForm = document.querySelector('.form-container');
-        const todoElement = createTodoEntry(textArea.value).taskContainer;
+        const todoElement = createTodoEntry(textArea.value, taskDescription.value).taskContainer;
 
         currentForm.parentElement.appendChild(todoElement);
 
@@ -83,8 +91,8 @@ export default function createTodoForm() {
 
 
 
-
-    appendMultiple(taskForm, textAreaLabel, formBtnContainer);
+    appendMultiple(inputAreaContainer, textArea, taskDescription);
+    appendMultiple(taskForm, inputAreaContainer, formBtnContainer);
     appendMultiple(formContainer, taskForm);
 
 

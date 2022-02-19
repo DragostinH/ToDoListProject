@@ -63,8 +63,10 @@ h1 {
 
 
 .task-container{
+    min-width: 500px;
     display: flex;
     gap: 1rem;
+    align-items: center;
     text-align: left;
     border-bottom: 1px solid var(--fade-orange);
 }
@@ -73,6 +75,34 @@ h1 {
     border-radius: 50%;
 
 }
+
+#textArea,
+#task-description{
+    width: 100%;
+    resize: none;
+    border-radius: 0.3rem 0.3rem 0 0;
+    border: none;
+    outline: none;
+
+}
+
+.task-input-container{
+    border: 2px solid var(--good-orange);
+    border-radius: 0.4rem;
+}
+
+
+#textArea{
+    font-size: large;
+}
+
+.todo-description{
+    opacity: 0.7;
+    font-size: medium;
+    margin: 0;
+}
+
+
 
 .task-list{
     flex: 0.75;
