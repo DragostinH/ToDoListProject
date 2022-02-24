@@ -2,24 +2,34 @@ import addClassToElement from "./addClassToElement";
 import appendMultiple from "./appendMultiple";
 import createAddTaskBtn from "./createAddTaskBtn";
 import createDiv from "./createDiv";
+import createPriorityDropdown from "./createPriorityDropdown";
 import createTodoEntry from "./createTodoEntry";
 import formDisplayToggle from "./formToggle";
+import postTaskFunction from "./postTaskFunction";
 
-export default function createTodoForm() {
+export default function createTodoForm(array) {
     // Create a form that appears every time you click on Add Task
     // The form should have an input field of textarea with a character limit
     // of no more than 200 characters.
     // will include a "Add task" and Cancel buttons
     // Will have a class that helps us hide/show it.
     // Later on will include a title, description, due date and priority
+    const priorityDropdown = createPriorityDropdown();
+
+    const taskBtnContainer = createDiv();
+    taskBtnContainer.classList.add('task-btn-container');
+    taskBtnContainer.appendChild(priorityDropdown);
+
     const inputAreaContainer = createDiv();
     inputAreaContainer.classList.add('task-input-container')
     const taskList = document.querySelector('.task-list.inbox');
     const addTaskBtn = document.querySelector('.add-task-btn');
+
     const taskDescription = document.createElement('textarea');
     taskDescription.id = 'task-description';
     taskDescription.maxLength = 120;
     taskDescription.placeholder = 'Description';
+
     let listArray;
     const formContainer = createDiv();
     formContainer.classList.add('form-container');
@@ -33,6 +43,7 @@ export default function createTodoForm() {
 
     // Create a button that adds the task;
     const postTaskBtn = document.createElement('button');
+    postTaskBtn.disabled = true;
 
     // Create a cancel button that hides the form again
     const cancelTaskBtn = document.createElement('button');
@@ -50,8 +61,6 @@ export default function createTodoForm() {
     // Set maximum number of characters inside of the text area
     textArea.maxLength = 240;
 
-    // Wrap the input(textarea) in a label
-    // textAreaLabel.appendChild(textArea);
 
 
     // Add text for buttons:
@@ -60,23 +69,23 @@ export default function createTodoForm() {
 
 
 
+    // Adding an event listener to keyUp so you don't post empty tasks
+    textArea.addEventListener('keyup', () => {
+
+        if (textArea.value.length > 0) {
+            postTaskBtn.disabled = false;
+        } else {
+            postTaskBtn.disabled = true;
+        }
+    })
+
+
+
 
 
     // Add an event listener to the 'Post Task' button to push the task into the dom;
     postTaskBtn.onclick = () => {
-        const currentForm = document.querySelector('.form-container');
-        const todoElement = createTodoEntry(textArea.value, taskDescription.value).taskContainer;
-
-        currentForm.parentElement.appendChild(todoElement);
-
-
-
-
-
-
-        currentForm.parentElement.removeChild(currentForm);
-        addTaskBtn.style.display = 'block';
-
+        postTaskFunction(textArea, taskDescription, addTaskBtn);
     }
 
 
@@ -91,9 +100,17 @@ export default function createTodoForm() {
 
 
 
-    appendMultiple(inputAreaContainer, textArea, taskDescription);
-    appendMultiple(taskForm, inputAreaContainer, formBtnContainer);
-    appendMultiple(formContainer, taskForm);
+    appendMultiple(inputAreaContainer,
+        textArea,
+        taskDescription,
+        taskBtnContainer);
+
+    appendMultiple(taskForm,
+        inputAreaContainer,
+        formBtnContainer);
+
+    appendMultiple(formContainer,
+        taskForm);
 
 
 
@@ -102,5 +119,7 @@ export default function createTodoForm() {
 
 
 }
+
+
 
 

@@ -1,45 +1,52 @@
 import appendMultiple from "./appendMultiple";
+import createCheckmark from "./createCheckmark";
 import createDiv from "./createDiv";
+import createPriorityDropdown from "./createPriorityDropdown";
+import createTaskText from "./createTaskText";
 import generateRandomNum from "./randomNumGenerator";
+import createTaskDescription from "./taskDescription";
 
-export default function createTodoEntry(text, description) {
-    const randomNum = generateRandomNum();
-
-    const taskText = document.createElement('span');
-    taskText.innerText = text;
-
-    const taskDescription = document.createElement('p');
-    taskDescription.innerText = description;
-    taskDescription.classList.add('todo-description')
-
+export default function createTodoEntry(text, description,) {
     const ulElement = document.querySelector('.task-list.inbox');
 
-    const taskContainer = createDiv();
+    const randomNum = generateRandomNum();
+
+    const taskParentContainer = createDiv();
+
+    taskParentContainer.classList.add('task-container');
+
+    taskParentContainer.id = randomNum;
 
     const taskTextContainer = createDiv();
 
-    taskContainer.classList.add('task-container');
+    const taskText = createTaskText(text);
 
-    taskContainer.id = randomNum;
+    const taskDescription = createTaskDescription(description);
 
-    const taskCheckbox = document.createElement('button');
-    taskCheckbox.innerText = '?';
-    taskCheckbox.classList.add('task-checkbox');
-
+    const taskCheckbox = createCheckmark();
 
     // Adding an event listener to the checkbox button so it removes the to do entry by using the unique ID that gets generated with each todoEntry that we create
     taskCheckbox.onclick = () => {
 
-        const todoEntryToRemove = document.getElementById(taskContainer.id);
+        const todoEntryToRemove = document.getElementById(taskParentContainer.id);
         ulElement.removeChild(todoEntryToRemove.parentElement);
     }
 
+    appendMultiple(taskTextContainer,
+        taskText,
+        taskDescription);
+
+    appendMultiple(taskParentContainer,
+        taskCheckbox,
+        taskTextContainer);
 
 
 
-    appendMultiple(taskTextContainer, taskText, taskDescription)
-    appendMultiple(taskContainer, taskCheckbox, taskTextContainer);
-
-    return { taskContainer };
+    return {
+        taskParentContainer,
+        taskTextContainer
+    }
 
 }
+
+

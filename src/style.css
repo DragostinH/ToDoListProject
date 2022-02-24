@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;900&display=swap');
+
+
 :root {
     /* --almost-black: #212529;
     --dark-grey: #343a40;
@@ -11,6 +14,7 @@
     --light-grey: #6c757d;
     --lighter-grey: #adb5bd;
     --almost-white: #f8f9fa; */
+    font-family: 'Montserrat', sans-serif;
     --full-white: #fff;
     --light-grey: #e5e5e5;
     --good-orange: #fca311;
@@ -62,7 +66,7 @@ h1 {
 
 
 
-.task-container{
+.task-container {
     min-width: 500px;
     display: flex;
     gap: 1rem;
@@ -71,13 +75,15 @@ h1 {
     border-bottom: 1px solid var(--fade-orange);
 }
 
-.task-checkbox{
-    border-radius: 50%;
+.task-checkbox {
 
+    border-radius: 50%;
+    border: 1px solid;
+    padding: 0.2rem;
 }
 
 #textArea,
-#task-description{
+#task-description {
     width: 100%;
     resize: none;
     border-radius: 0.3rem 0.3rem 0 0;
@@ -86,17 +92,17 @@ h1 {
 
 }
 
-.task-input-container{
+.task-input-container {
     border: 2px solid var(--good-orange);
     border-radius: 0.4rem;
 }
 
 
-#textArea{
+#textArea {
     font-size: large;
 }
 
-.todo-description{
+.todo-description {
     opacity: 0.7;
     font-size: medium;
     margin: 0;
@@ -104,16 +110,69 @@ h1 {
 
 
 
-.task-list{
+.task-list {
     flex: 0.75;
     padding: 1rem;
     list-style: none;
 }
-.task-list-entry{
+
+.task-list-entry {
 
     margin: 1rem 0 1rem 0;
 }
 
+.task-btn-container {
+    display: inline;
+}
+
+.priorityA .task-checkbox{
+    border-color: red;
+    color: red
+}
+.priorityB .task-checkbox{
+    border-color: var(--good-orange);
+    color: var(--good-orange);
+}
+.priorityC .task-checkbox{
+    border-color: var(--dark-blue);
+    color: var(--dark-blue);
+}
+.priorityD .task-checkbox{
+    border-color: gray;
+    color: grey;
+}
+.no-priority .task-checkbox{
+    border-color: var(--full-black);
+    color: var(--full-black);
+}
 
 
 
+/* HOVER ----------------- */
+
+.priorityA .task-checkbox:hover{
+    background-color: red;
+    color: var(--full-white);
+    cursor: pointer;
+}
+.priorityB .task-checkbox:hover{
+    background-color: var(--good-orange);
+    color: var(--dark-blue);
+    cursor: pointer;
+}
+.priorityC .task-checkbox:hover{
+    background-color: var(--dark-blue);
+    color: var(--good-orange);
+    cursor: pointer;
+}
+.priorityD .task-checkbox:hover{
+    background-color: gray;
+    color: var(--full-white);
+    cursor: pointer;
+}
+
+.no-priority .task-checkbox:hover{
+    background-color: var(--full-black);
+    color: var(--full-white);
+    cursor: pointer;
+}
