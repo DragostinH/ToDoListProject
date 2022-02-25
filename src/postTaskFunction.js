@@ -6,8 +6,7 @@ export default function postTaskFunction(textArea, taskDescription, addTaskBtn) 
 
     
     const currentForm = document.querySelector('.form-container');
-    const todoElement = createTodoEntry(textArea.value, taskDescription.value);
-    console.log(todoElement);
+    const todoElement = createTodoEntry(textArea.value, taskDescription.value).taskParentContainer;
 
 
   
