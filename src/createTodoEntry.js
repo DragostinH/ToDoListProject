@@ -7,9 +7,18 @@ import generateRandomNum from "./randomNumGenerator";
 import createTaskDescription from "./taskDescription";
 
 export default function createTodoEntry(text, description) {
+    const randomNum = generateRandomNum();
+
+    const taskObject = {
+        taskID: randomNum,
+        taskText: text,
+        taskDescription: description,
+        taskPriority: ""
+
+    }
+
     const ulElement = document.querySelector('.task-list.inbox');
 
-    const randomNum = generateRandomNum();
 
     const taskParentContainer = createDiv();
 
@@ -23,10 +32,10 @@ export default function createTodoEntry(text, description) {
 
     const taskDescription = createTaskDescription(description);
 
-    const taskCheckbox = createCheckmark();
+    const taskCheckmark = createCheckmark();
 
     // Adding an event listener to the checkbox button so it removes the to do entry by using the unique ID that gets generated with each todoEntry that we create
-    taskCheckbox.onclick = () => {
+    taskCheckmark.onclick = () => {
         const todoEntryToRemove = document.getElementById(taskParentContainer.id);
         ulElement.removeChild(todoEntryToRemove.parentElement);
     }
@@ -36,14 +45,15 @@ export default function createTodoEntry(text, description) {
         taskDescription);
 
     appendMultiple(taskParentContainer,
-        taskCheckbox,
+        taskCheckmark,
         taskTextContainer);
 
 
 
     return {
         taskParentContainer,
-        taskTextContainer
+        taskTextContainer,
+        taskObject
     }
 
 }

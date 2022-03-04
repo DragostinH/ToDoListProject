@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/DragostinH/ToDoListProject#readme",
   "devDependencies": {
-    "webpack": "^5.68.0",
+    "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
