@@ -12,9 +12,18 @@ const indexPage = (() => {
     // Always load the inbox first:
     inboxPage();
 
-    const inboxBtn = document.querySelector('.inbox-btn')
-    const todayBtn = document.querySelector('.today-btn')
-    const upcomingBtn = document.querySelector('.upcoming-btn')
+    // Create the main array that contains all of Inbox task objects into one. It should be seperated by priorities.
+
+    const inboxBtn = document.querySelector('.inbox-btn');
+    const todayBtn = document.querySelector('.today-btn');
+    const upcomingBtn = document.querySelector('.upcoming-btn');
+    const addTaskBtn = document.querySelector('.add-task-btn');
+    const main = document.querySelector('main');
+    const ulInbox = document.querySelector('.task-list.inbox');
+
+
+
+
 
 
 

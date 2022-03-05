@@ -14,6 +14,9 @@ export default function createTodoForm(array) {
     // will include a "Add task" and Cancel buttons
     // Will have a class that helps us hide/show it.
     // Later on will include a due date
+
+
+
     const myStorage = localStorage;
     const priorityDropdown = createPriorityDropdown();
 
@@ -86,18 +89,15 @@ export default function createTodoForm(array) {
 
     // Add an event listener to the 'Post Task' button to push the task into the dom;
     postTaskBtn.onclick = () => {
+        // Posting the task should add the task into the main array by looking at the priority and sorting them that way. 
+        // After that it should add the array into the local storage as an object element
+
         const task = postTaskFunction(textArea, taskDescription, addTaskBtn);
-        console.log(task.todoElement);
+        const stringified_task = JSON.stringify(task.todoElement.taskObject);
 
-        myStorage.submittedTask = JSON.stringify(task.todoElement);
+        let id = task.todoElement.taskObject.taskID;
+        myStorage.setItem(id, stringified_task);
 
-        // sometime later
-        // let user = JSON.parse(localStorage.user);
-        // alert(user.name); // John
-        console.log(myStorage.submittedTask);
-
-        let todo = JSON.parse(myStorage.submittedTask);
-        console.log(todo);
     }
 
 
