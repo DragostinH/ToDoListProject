@@ -18,6 +18,9 @@ export default function createTodoForm(array) {
 
 
     const myStorage = localStorage;
+
+    let arr = array;
+
     const priorityDropdown = createPriorityDropdown();
 
     const taskBtnContainer = createDiv();
@@ -34,13 +37,10 @@ export default function createTodoForm(array) {
     taskDescription.maxLength = 120;
     taskDescription.placeholder = 'Description';
 
-    let listArray;
     const formContainer = createDiv();
     formContainer.classList.add('form-container');
     const taskForm = document.createElement('form');
-    addClassToElement(taskForm, 'taskform');
-    // Create a button that shows the form
-
+    taskForm.classList.add('taskform');
 
     // Create a container for the Post Task and Cancel buttons
     const formBtnContainer = createDiv();
@@ -73,7 +73,7 @@ export default function createTodoForm(array) {
 
 
 
-    // Adding an event listener to keyUp so you don't post empty tasks
+    // Adding an event listener to textarea so you don't post empty tasks
     textArea.addEventListener('keyup', () => {
 
         if (textArea.value.length > 0) {
@@ -89,14 +89,17 @@ export default function createTodoForm(array) {
 
     // Add an event listener to the 'Post Task' button to push the task into the dom;
     postTaskBtn.onclick = () => {
-        // Posting the task should add the task into the main array by looking at the priority and sorting them that way. 
-        // After that it should add the array into the local storage as an object element
-
+        let itemToStringify;
         const task = postTaskFunction(textArea, taskDescription, addTaskBtn);
-        const stringified_task = JSON.stringify(task.todoElement.taskObject);
+        // We use the array provided. The array should already be up to date if there are any items from storage.
 
-        let id = task.todoElement.taskObject.taskID;
-        myStorage.setItem(id, stringified_task);
+        if(arr[0].name === 'Inbox'){
+            arr[0].tasks.push(task.todoElement.taskObject)
+            itemToStringify = JSON.stringify(arr[0]);
+            myStorage.setItem('storage', itemToStringify);
+        }
+
+        
 
     }
 
@@ -107,7 +110,6 @@ export default function createTodoForm(array) {
         const currentForm = document.querySelector('.form-container');
         currentForm.parentElement.remove();
         addTaskBtn.style.display = 'block';
-
     }
 
 
