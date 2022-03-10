@@ -90,16 +90,25 @@ export default function createTodoForm(array) {
     // Add an event listener to the 'Post Task' button to push the task into the dom;
     postTaskBtn.onclick = () => {
         let itemToStringify;
+        let itemToParse;
         const task = postTaskFunction(textArea, taskDescription, addTaskBtn);
         // We use the array provided. The array should already be up to date if there are any items from storage.
 
-        if(arr[0].name === 'Inbox'){
-            arr[0].tasks.push(task.todoElement.taskObject)
-            itemToStringify = JSON.stringify(arr[0]);
-            myStorage.setItem('storage', itemToStringify);
-        }
+        // Find the title of the page (inbox, today, upcoming) and add the new task into the respective field
 
-        
+        let currTitle = document.querySelector('h2').innerText;
+
+        itemToParse = JSON.parse(myStorage.Projects);
+        itemToParse.find((element) => {
+            if(element.name === currTitle){
+                console.log('found it')
+                console.log(element);
+                element.tasks.push(task.todoElement.taskObject);
+                itemToStringify = JSON.stringify(itemToParse);
+                myStorage.Projects = itemToStringify;
+            }
+        })
+
 
     }
 

@@ -33,7 +33,7 @@ export default function inboxPage() {
 
 
 
-    // Event listeners -------------
+// Event listeners -------------
     addTaskBtn.onclick = () => {
         // Remove the Add Task button
         addTaskBtn.style.display = 'none';
@@ -44,43 +44,32 @@ export default function inboxPage() {
         // append the form to the new li element
         li.appendChild(todoForm);
         ulForInbox.insertBefore(li, addTaskBtn);
-
-        // if (storageKeys.length > 0) {
-        //     inboxArray[0] = JSON.parse(myStorage.storage);
-        //     let storedElements = createStoreElements(inboxArray);
-        //     storedElements.forEach(element => {
-        //         let liElement = createListElement();
-        //         liElement.appendChild(element);
-        //         ulForInbox.insertBefore(liElement, targetAddTaskBtn);
-        //     });
-        // } else {
-        //     inboxArray[0] = {
-        //         name: 'Inbox',
-        //         tasks: []
-        //     }
-
-        // }
     }
-    // Storage manipulation-------------
+
+// Storage manipulation------------------------------------------------------
+    // Check if there are items in storage
     if (storageKeys.length > 0) {
-        inboxArray[0] = JSON.parse(myStorage.storage);
-        let storedElements = createStoreElements(inboxArray);
-        storedElements.forEach(element => {
-            let liElement = createListElement();
-            liElement.appendChild(element);
-            ulForInbox.insertBefore(liElement, targetAddTaskBtn);
-        });
-
-    } else {
-        inboxArray[0] = {
-            name: 'Inbox',
-            tasks: []
-        }
-
+        let listElement;
+        let taskFromStorage;
+        // Parse the storage structure into an array
+        let parsedArr = JSON.parse(myStorage.Projects);
+        // Iterate through the parsed Array and find the 'Inbox' element
+        parsedArr.forEach((element) => {
+            if (element.name === 'Inbox') {
+                // Iterate through the Inbox array and create the tasks and append to the DOM
+                element.tasks.forEach((task) => {
+                    taskFromStorage = createTodoEntry(task.taskText, task.taskDescription, task.taskID);
+                    taskFromStorage.taskParentContainer.classList.add(task.taskPriority);
+                    listElement = createListElement();
+                    listElement.appendChild(taskFromStorage.taskParentContainer);
+                    ulForInbox.insertBefore(listElement, targetAddTaskBtn);
+                })
+            }
+        })
     }
 
 
-    console.log(inboxArray);
+
 
 
     // APPENDS ----------------

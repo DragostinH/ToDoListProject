@@ -13,10 +13,10 @@ export default function createTodoEntry(text, description, id = 0) {
     const taskParentContainer = createDiv();
 
     taskParentContainer.classList.add('task-container');
-    if(id ===0){
+    if (id === 0) {
         taskParentContainer.id = randomNum;
 
-    }else{
+    } else {
         taskParentContainer.id = id;
     }
 
@@ -27,9 +27,6 @@ export default function createTodoEntry(text, description, id = 0) {
         taskPriority: ""
 
     }
-
-
-
 
     const taskTextContainer = createDiv();
 
@@ -42,28 +39,32 @@ export default function createTodoEntry(text, description, id = 0) {
     // Adding an event listener to the checkbox button so it removes the to do entry by using the unique ID that gets generated with each todoEntry that we create
     taskCheckmark.onclick = () => {
         // let arr = JSON.parse(myStorage.Inbox).tasks;
+        let parsedStorage = JSON.parse(myStorage.Projects);
         let keys = Object.keys(myStorage);
-        for (const key of keys) {
-           let currItem = JSON.parse(myStorage.getItem(key));
-           currItem.tasks.forEach(element => {
-               if(element.taskID === taskParentContainer.id){
-                   let indexToDelete = currItem.tasks.indexOf(element);
-                //    console.log(indexToDelete);
-                   console.log(element);
-                //    console.log(currItem.tasks);
-                   currItem.tasks.splice(indexToDelete, 1);
-               }
-           });
-        }
+
+        let pageTitle = document.querySelector('h2').innerText;
+        let taskIDToDelete = taskParentContainer.id;
+
+        parsedStorage.find((element) => {
+            if (element.name === pageTitle) {
+                console.log('found it')
+                element.tasks.find((taskToDelete) => {
+                    if (taskToDelete.taskID === taskIDToDelete) {
+                        console.log('Found it again');
+                        console.log(taskToDelete);
+                        console.log(element.tasks.indexOf(taskToDelete));
+                        let indexToDelete = (element.tasks.indexOf(taskToDelete));
+                        element.tasks.splice(indexToDelete, 1);
+                        myStorage.Projects = JSON.stringify(parsedStorage);
+                    }
+                })
+            }
+        })
+
 
         const ulElement = document.querySelector('.task-list.inbox');
         const todoEntryToRemove = document.getElementById(taskParentContainer.id);
         ulElement.removeChild(todoEntryToRemove.parentElement)
-        // arr.forEach(element => {
-        //     if(element.taskID === randomNum){
-
-        //     }
-        // });
     }
 
     appendMultiple(taskTextContainer,
