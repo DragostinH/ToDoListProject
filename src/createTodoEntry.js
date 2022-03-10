@@ -47,12 +47,8 @@ export default function createTodoEntry(text, description, id = 0) {
 
         parsedStorage.find((element) => {
             if (element.name === pageTitle) {
-                console.log('found it')
                 element.tasks.find((taskToDelete) => {
                     if (taskToDelete.taskID === taskIDToDelete) {
-                        console.log('Found it again');
-                        console.log(taskToDelete);
-                        console.log(element.tasks.indexOf(taskToDelete));
                         let indexToDelete = (element.tasks.indexOf(taskToDelete));
                         element.tasks.splice(indexToDelete, 1);
                         myStorage.Projects = JSON.stringify(parsedStorage);
@@ -62,7 +58,7 @@ export default function createTodoEntry(text, description, id = 0) {
         })
 
 
-        const ulElement = document.querySelector('.task-list.inbox');
+        const ulElement = document.querySelector('.task-list');
         const todoEntryToRemove = document.getElementById(taskParentContainer.id);
         ulElement.removeChild(todoEntryToRemove.parentElement)
     }

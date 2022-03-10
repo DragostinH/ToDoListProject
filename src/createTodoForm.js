@@ -7,7 +7,7 @@ import createTodoEntry from "./createTodoEntry";
 import formDisplayToggle from "./formToggle";
 import postTaskFunction from "./postTaskFunction";
 
-export default function createTodoForm(array) {
+export default function createTodoForm() {
     // Create a form that appears every time you click on Add Task
     // The form should have an input field of textarea with a character limit
     // of no more than 200 characters.
@@ -19,7 +19,6 @@ export default function createTodoForm(array) {
 
     const myStorage = localStorage;
 
-    let arr = array;
 
     const priorityDropdown = createPriorityDropdown();
 

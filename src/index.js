@@ -9,6 +9,8 @@ import createStorageStructure from './createStorageStructure';
 import createTodoEntry from './createTodoEntry';
 import createTodoForm from './createTodoForm';
 import inboxPage from './inbox';
+import todayPage from './today';
+import upcomingPage from './upcoming';
 
 const indexPage = (() => {
     // Always load the inbox first:
@@ -23,6 +25,31 @@ const indexPage = (() => {
     const addTaskBtn = document.querySelector('.add-task-btn');
     const main = document.querySelector('main');
     const ulInbox = document.querySelector('.task-list.inbox');
+
+
+
+    inboxBtn.onclick = () => {
+        const ulToRemove = document.querySelector('.task-list');
+        const titleToRemove = document.querySelector('h2');
+        main.removeChild(ulToRemove);
+        main.removeChild(titleToRemove);
+        inboxPage();
+    }
+
+    todayBtn.onclick = () => {
+        const ulToRemove = document.querySelector('.task-list');
+        const titleToRemove = document.querySelector('h2');
+        main.removeChild(ulToRemove);
+        main.removeChild(titleToRemove);
+        todayPage();
+    }
+    upcomingBtn.onclick = () => {
+        const ulToRemove = document.querySelector('.task-list');
+        const titleToRemove = document.querySelector('h2');
+        main.removeChild(ulToRemove);
+        main.removeChild(titleToRemove);
+        upcomingPage();
+    }
 
 
 
