@@ -1,9 +1,11 @@
 import createTodoEntry from "./createTodoEntry";
 
-export default function postTaskFunction(textArea, taskDescription, addTaskBtn, array) {
+export default function postTaskFunction(textArea, taskDescription, addTaskBtn, unformattedDate, dueDate) {
     const dropDown = document.querySelector('.dropdown-btn');
+    const date = dueDate;
+    const unformDate = unformattedDate
     const currentForm = document.querySelector('.form-container');
-    const todoElement = createTodoEntry(textArea.value, taskDescription.value)
+    const todoElement = createTodoEntry(textArea.value, taskDescription.value, unformDate, date);
 
 
 

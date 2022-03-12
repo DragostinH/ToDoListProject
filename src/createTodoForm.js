@@ -1,6 +1,8 @@
+import { format, parseISO } from "date-fns";
 import addClassToElement from "./addClassToElement";
 import appendMultiple from "./appendMultiple";
 import createAddTaskBtn from "./createAddTaskBtn";
+import createCalendar from "./createCalendar";
 import createDiv from "./createDiv";
 import createPriorityDropdown from "./createPriorityDropdown";
 import createTodoEntry from "./createTodoEntry";
@@ -20,11 +22,15 @@ export default function createTodoForm() {
     const myStorage = localStorage;
 
 
+    const formCalendar = createCalendar();
+    let dueDate;
+
     const priorityDropdown = createPriorityDropdown();
 
     const taskBtnContainer = createDiv();
     taskBtnContainer.classList.add('task-btn-container');
     taskBtnContainer.appendChild(priorityDropdown);
+    taskBtnContainer.appendChild(formCalendar.calendarDiv);
 
     const inputAreaContainer = createDiv();
     inputAreaContainer.classList.add('task-input-container')
@@ -39,6 +45,7 @@ export default function createTodoForm() {
     const formContainer = createDiv();
     formContainer.classList.add('form-container');
     const taskForm = document.createElement('form');
+    taskForm.submit(false);
     taskForm.classList.add('taskform');
 
     // Create a container for the Post Task and Cancel buttons
@@ -90,7 +97,21 @@ export default function createTodoForm() {
     postTaskBtn.onclick = () => {
         let itemToStringify;
         let itemToParse;
-        const task = postTaskFunction(textArea, taskDescription, addTaskBtn);
+        let unformattedDate;
+        if (formCalendar.calendarInput.value === '') {
+            dueDate = format(new Date(), 'dd/MM/yyyy HH:mm')
+
+        } else {
+            unformattedDate = formCalendar.calendarInput.value;
+            let parsedDate = parseISO(unformattedDate);
+            console.log(unformattedDate);
+            dueDate = format(parsedDate, 'dd/MM/yyyy HH:mm')
+
+        }
+        // dueDate = parseISO(formCalendar.calendarInput.value);
+
+        console.log(`This is the due date ${dueDate}`);
+        const task = postTaskFunction(textArea, taskDescription, addTaskBtn, unformattedDate, dueDate);
         // We use the array provided. The array should already be up to date if there are any items from storage.
 
         // Find the title of the page (inbox, today, upcoming) and add the new task into the respective field
@@ -99,8 +120,7 @@ export default function createTodoForm() {
 
         itemToParse = JSON.parse(myStorage.Projects);
         itemToParse.find((element) => {
-            if(element.name === currTitle){
-                console.log('found it')
+            if (element.name === currTitle) {
                 console.log(element);
                 element.tasks.push(task.todoElement.taskObject);
                 itemToStringify = JSON.stringify(itemToParse);

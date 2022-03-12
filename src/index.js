@@ -1,8 +1,9 @@
-import { formatDistance, subDays } from 'date-fns';
+import { format, formatDistance, subDays } from 'date-fns';
 import { el } from 'date-fns/locale';
 import addClassToElement from './addClassToElement';
 import appendMultiple from './appendMultiple';
 import createAddTaskBtn from './createAddTaskBtn';
+import createCalendar from './createCalendar';
 import createDiv from './createDiv';
 import createListElement from './createListElement';
 import createStorageStructure from './createStorageStructure';
@@ -26,6 +27,19 @@ const indexPage = (() => {
     const main = document.querySelector('main');
     const ulInbox = document.querySelector('.task-list.inbox');
 
+    const today = new Date();
+    
+    const formattedDate = format(today, 'dd/mm/yyyy HH:mm');
+
+
+
+
+   
+
+
+
+
+    
 
 
     inboxBtn.onclick = () => {

@@ -6,11 +6,15 @@ import createTaskText from "./createTaskText";
 import generateRandomNum from "./randomNumGenerator";
 import createTaskDescription from "./taskDescription";
 
-export default function createTodoEntry(text, description, id = 0) {
+export default function createTodoEntry(text, description, unformattedDate, dueDate, id = 0) {
     const randomNum = generateRandomNum();
 
     const myStorage = localStorage;
     const taskParentContainer = createDiv();
+    const dateText = document.createElement('p');
+    dateText.innerText = dueDate
+    const dateDiv = createDiv();
+    dateDiv.classList.add('date-container');
 
     taskParentContainer.classList.add('task-container');
     if (id === 0) {
@@ -24,8 +28,9 @@ export default function createTodoEntry(text, description, id = 0) {
         taskID: taskParentContainer.id,
         taskText: text,
         taskDescription: description,
-        taskPriority: ""
-
+        taskPriority: "",
+        unformattedDate: unformattedDate,
+        taskDueDate: dueDate
     }
 
     const taskTextContainer = createDiv();
@@ -44,10 +49,15 @@ export default function createTodoEntry(text, description, id = 0) {
 
         let pageTitle = document.querySelector('h2').innerText;
         let taskIDToDelete = taskParentContainer.id;
+        const ulElement = document.querySelector('.task-list');
+        const todoEntryToRemove = document.getElementById(taskParentContainer.id);
+        ulElement.removeChild(todoEntryToRemove.parentElement)
 
         parsedStorage.find((element) => {
+
             if (element.name === pageTitle) {
                 element.tasks.find((taskToDelete) => {
+                    console.log(taskToDelete);
                     if (taskToDelete.taskID === taskIDToDelete) {
                         let indexToDelete = (element.tasks.indexOf(taskToDelete));
                         element.tasks.splice(indexToDelete, 1);
@@ -58,14 +68,18 @@ export default function createTodoEntry(text, description, id = 0) {
         })
 
 
-        const ulElement = document.querySelector('.task-list');
-        const todoEntryToRemove = document.getElementById(taskParentContainer.id);
-        ulElement.removeChild(todoEntryToRemove.parentElement)
     }
+
+
+
+    // APPENDS ---------------------
+
+    dateDiv.appendChild(dateText);
 
     appendMultiple(taskTextContainer,
         taskText,
-        taskDescription);
+        taskDescription,
+        dateDiv);
 
     appendMultiple(taskParentContainer,
         taskCheckmark,

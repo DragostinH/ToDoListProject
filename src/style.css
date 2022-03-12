@@ -75,6 +75,7 @@ h1 {
     border-bottom: 1px solid var(--fade-orange);
 }
 
+
 .task-checkbox {
 
     border-radius: 50%;
@@ -122,8 +123,18 @@ h1 {
 }
 
 .task-btn-container {
-    display: inline;
+    display: flex;
+    justify-content: space-between;
+    /* top right bottom left */
 }
+
+.span-date{
+    opacity: 0.4;
+    font-size: 0.8rem;
+    margin-left: 0.8rem;
+}
+
+/* Priority dropdown ---------------- */
 
 .priorityA .task-checkbox{
     border-color: red;

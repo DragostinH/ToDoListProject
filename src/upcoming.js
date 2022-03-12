@@ -1,4 +1,4 @@
-import { formatDistance, subDays } from 'date-fns';
+import { format, formatDistance, subDays } from 'date-fns';
 import addClassToElement from './addClassToElement';
 import appendMultiple from './appendMultiple';
 import createAddTaskBtn from './createAddTaskBtn';
@@ -24,6 +24,7 @@ export default function upcoming(){
     const targetAddTaskBtn = document.querySelector('.add-task-btn');
 
     const title = document.createElement('h2')
+ 
     title.innerText = 'Upcoming';
 
     // Event listeners -------------------
@@ -51,7 +52,7 @@ export default function upcoming(){
             if (element.name === 'Upcoming') {
                 // Iterate through the Today array and create the tasks and append to the DOM
                 element.tasks.forEach((task) => {
-                    taskFromStorage = createTodoEntry(task.taskText, task.taskDescription, task.taskID);
+                    taskFromStorage = createTodoEntry(task.taskText, task.taskDescription, task.taskDueDate, task.taskID);
                     taskFromStorage.taskParentContainer.classList.add(task.taskPriority);
                     listElement = createListElement();
                     listElement.appendChild(taskFromStorage.taskParentContainer);

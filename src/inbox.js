@@ -57,7 +57,7 @@ export default function inboxPage() {
             if (element.name === 'Inbox') {
                 // Iterate through the Inbox array and create the tasks and append to the DOM
                 element.tasks.forEach((task) => {
-                    taskFromStorage = createTodoEntry(task.taskText, task.taskDescription, task.taskID);
+                    taskFromStorage = createTodoEntry(task.taskText, task.taskDescription, task.unformattedDate, task.taskDueDate, task.taskID);
                     taskFromStorage.taskParentContainer.classList.add(task.taskPriority);
                     listElement = createListElement();
                     listElement.appendChild(taskFromStorage.taskParentContainer);
