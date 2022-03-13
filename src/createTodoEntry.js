@@ -50,23 +50,24 @@ export default function createTodoEntry(text, description, unformattedDate, dueD
         let pageTitle = document.querySelector('h2').innerText;
         let taskIDToDelete = taskParentContainer.id;
         const ulElement = document.querySelector('.task-list');
-        const todoEntryToRemove = document.getElementById(taskParentContainer.id);
-        ulElement.removeChild(todoEntryToRemove.parentElement)
 
-        parsedStorage.find((element) => {
+        console.log(parsedStorage);
 
-            if (element.name === pageTitle) {
-                element.tasks.find((taskToDelete) => {
-                    console.log(taskToDelete);
-                    if (taskToDelete.taskID === taskIDToDelete) {
-                        let indexToDelete = (element.tasks.indexOf(taskToDelete));
-                        element.tasks.splice(indexToDelete, 1);
-                        myStorage.Projects = JSON.stringify(parsedStorage);
-                    }
-                })
-            }
+        parsedStorage.forEach((element) => {
+
+            element.tasks.forEach((taskToDelete) => {
+                if (taskToDelete.taskID === taskIDToDelete) {
+                    let indexToDelete = (element.tasks.indexOf(taskToDelete));
+                    element.tasks.splice(indexToDelete, 1);
+                    myStorage.Projects = JSON.stringify(parsedStorage);
+                    return;
+                }
+            })
+
         })
 
+        const todoEntryToRemove = document.getElementById(taskParentContainer.id);
+        ulElement.removeChild(todoEntryToRemove.parentElement)
 
     }
 

@@ -7,10 +7,11 @@ import createListElement from './createListElement';
 import createStoreElements from './createStoredElements';
 import createTodoEntry from './createTodoEntry';
 import createTodoForm from './createTodoForm';
+import sortTodayStorage from './sortTodayStorage';
 
 export default function today() {
     // Storage variables----
-    const myStorage = window.localStorage;
+    const myStorage = JSON.parse(window.localStorage.Projects);
     const storageKeys = Object.keys(myStorage);
 
     // Today Array
@@ -28,49 +29,30 @@ export default function today() {
     const title = document.createElement('h2')
     title.innerText = 'Today';
 
+
+
+    // Put today's date next to the title of the page.
     const spanDate = document.createElement('span');
     const todaysDate = format(new Date(), "E' ' d ' ' LLL")
     spanDate.innerText = `${todaysDate}`
     spanDate.classList.add('span-date');
     title.appendChild(spanDate);
 
-    // Event listeners -------------------
-    // addTaskBtn.onclick = () => {
-    //     // Remove the Add Task button
-    //     addTaskBtn.style.display = 'none';
-    //     // Create the form for adding new todos
-    //     todoForm = createTodoForm().formContainer;
-    //     // Create a li element to append to the main element
-    //     const li = createListElement();
-    //     // append the form to the new li element
-    //     li.appendChild(todoForm);
-    //     ulForToday.insertBefore(li, addTaskBtn);
-    // }
+    // DOM manipulation  -------------------
+    todayArray = myStorage[1].tasks;
+    console.log(todayArray);
+    todayArray.forEach((task) => {
+        let taskFromStorage = createTodoEntry(task.taskText, task.taskDescription, task.unformattedDate, task.taskDueDate, task.taskID);
+        taskFromStorage.taskParentContainer.classList.add(task.taskPriority);
+        let listElement = createListElement();
+        listElement.appendChild(taskFromStorage.taskParentContainer);
+        ulForToday.insertBefore(listElement, targetAddTaskBtn);
+    })
 
     // Storage manipulation --------------
 
     if (storageKeys.length > 0) {
-        let listElement;
-        let taskFromStorage;
-        let parsedDate;
-        let newTasksArray = [];
-        // Parse the storage structure into an array
-        let parsedArr = JSON.parse(myStorage.Projects);
-        // Iterate through the parsed Array and find all the tasks that should be appended to 'Today'.
-        parsedArr.forEach((element) => {
-            element.tasks.forEach((task) => {
-                // let str = `${task.taskDueDate}`;
-                // let str2 = parseISO(parse(str, 'dd/MM/yyyy HH:mm', new Date()).toISOString());
-
-                // if (isToday(str2)) {
-                //     newTasksArray.push(task);
-                // }
-
-            })
-        })
-
-        // parsedArr[1].tasks = newTasksArray;
-        // myStorage.Projects = JSON.stringify(parsedArr);
+        sortTodayStorage();
     }
 
 

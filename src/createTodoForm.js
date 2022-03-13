@@ -8,6 +8,8 @@ import createPriorityDropdown from "./createPriorityDropdown";
 import createTodoEntry from "./createTodoEntry";
 import formDisplayToggle from "./formToggle";
 import postTaskFunction from "./postTaskFunction";
+import sortInboxStorage from "./sortInboxStorage";
+import sortTodayStorage from "./sortTodayStorage";
 
 export default function createTodoForm() {
     // Create a form that appears every time you click on Add Task
@@ -110,7 +112,6 @@ export default function createTodoForm() {
         }
         // dueDate = parseISO(formCalendar.calendarInput.value);
 
-        console.log(`This is the due date ${dueDate}`);
         const task = postTaskFunction(textArea, taskDescription, addTaskBtn, unformattedDate, dueDate);
         // We use the array provided. The array should already be up to date if there are any items from storage.
 
@@ -121,10 +122,10 @@ export default function createTodoForm() {
         itemToParse = JSON.parse(myStorage.Projects);
         itemToParse.find((element) => {
             if (element.name === currTitle) {
-                console.log(element);
                 element.tasks.push(task.todoElement.taskObject);
                 itemToStringify = JSON.stringify(itemToParse);
                 myStorage.Projects = itemToStringify;
+                sortTodayStorage();
             }
         })
 
