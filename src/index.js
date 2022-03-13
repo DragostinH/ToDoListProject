@@ -1,4 +1,4 @@
-import { format, formatDistance, subDays } from 'date-fns';
+import { format, formatDistance, isToday, parse, parseISO, subDays } from 'date-fns';
 import { el } from 'date-fns/locale';
 import addClassToElement from './addClassToElement';
 import appendMultiple from './appendMultiple';
@@ -26,20 +26,6 @@ const indexPage = (() => {
     const addTaskBtn = document.querySelector('.add-task-btn');
     const main = document.querySelector('main');
     const ulInbox = document.querySelector('.task-list.inbox');
-
-    const today = new Date();
-    
-    const formattedDate = format(today, 'dd/mm/yyyy HH:mm');
-
-
-
-
-   
-
-
-
-
-    
 
 
     inboxBtn.onclick = () => {
@@ -76,8 +62,38 @@ const indexPage = (() => {
         createStorageStructure();
     }
 
+    // Testing..--
+
+    const myStorageArr = JSON.parse(localStorage.Projects);
+    let inboxArr = [];
+    let todayArr = [];
+    let upcomingArr = [];
+
+    inboxArr = myStorageArr[0].tasks;
+    todayArr = myStorageArr[1].tasks;
+    upcomingArr = myStorageArr[2].tasks;
+
+    // If task is today and it isn't already in 'Today' push it.
+
+    inboxArr.forEach((task) => {
+        let dueDate = task.taskDueDate;
+        let parsedDueDate = parseISO(parse(dueDate, 'dd/MM/yyyy HH:mm', new Date()).toISOString());
 
 
+
+        if (isToday(parsedDueDate)) {
+            todayArr.push(task);
+        }
+
+    })
+
+    console.log(todayArr);
+    myStorageArr[1].tasks = todayArr
+    myStorage.Projects = JSON.stringify(myStorageArr);
+
+    // console.log(inboxArr)
+    // console.log(todayArr)
+    // console.log(upcomingArr)
 
 
 })()
