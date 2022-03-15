@@ -71,8 +71,11 @@ const indexPage = (() => {
     }
 
     // Testing..--
-    // What to take. array.lenght = 8 -> Remove the first 3 elements = 5
 
+    // TODO:
+    // Add a better error message whenever you create a project with a name that already exists
+    // Fix the CSS
+    // Add the functionality to edit the task
 
 
 
