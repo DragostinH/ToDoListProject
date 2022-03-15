@@ -20,9 +20,7 @@ export default function inboxPage() {
     const targetAddTaskBtn = document.querySelector('.add-task-btn');
 
 
-    // The index page always defaults to Inbox 
-    // With every page we create the HTML elements.
-    // This includes the "main" content element, sidebar and header.
+    // The index page always defaults to Inbox .
 
 
     const pageTitle = document.createElement('h2');
@@ -37,7 +35,7 @@ export default function inboxPage() {
         // Remove the Add Task button
         addTaskBtn.style.display = 'none';
         // Create the form for adding new todos
-        todoForm = createTodoForm().formContainer;
+        todoForm = createTodoForm(pageTitle.innerText).formContainer;
         // Create a li element to append to the main element
         const li = createListElement();
         // append the form to the new li element

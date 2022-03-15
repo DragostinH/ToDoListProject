@@ -11,7 +11,7 @@ import postTaskFunction from "./postTaskFunction";
 import sortInboxStorage from "./sortInboxStorage";
 import sortTodayStorage from "./sortTodayStorage";
 
-export default function createTodoForm() {
+export default function createTodoForm(title) {
     // Create a form that appears every time you click on Add Task
     // The form should have an input field of textarea with a character limit
     // of no more than 200 characters.
@@ -110,14 +110,13 @@ export default function createTodoForm() {
             dueDate = format(parsedDate, 'dd/MM/yyyy HH:mm')
 
         }
-        // dueDate = parseISO(formCalendar.calendarInput.value);
 
         const task = postTaskFunction(textArea, taskDescription, addTaskBtn, unformattedDate, dueDate);
         // We use the array provided. The array should already be up to date if there are any items from storage.
 
         // Find the title of the page (inbox, today, upcoming) and add the new task into the respective field
 
-        let currTitle = document.querySelector('h2').innerText;
+        let currTitle = title;
 
         itemToParse = JSON.parse(myStorage.Projects);
         itemToParse.find((element) => {
@@ -125,7 +124,6 @@ export default function createTodoForm() {
                 element.tasks.push(task.todoElement.taskObject);
                 itemToStringify = JSON.stringify(itemToParse);
                 myStorage.Projects = itemToStringify;
-                sortTodayStorage();
             }
         })
 

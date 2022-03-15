@@ -9,44 +9,31 @@ export default function sortTodayStorage() {
     const myStorage = window.localStorage;
 
     const myStorageArr = JSON.parse(myStorage.Projects);
+
     let inboxArr = [];
     let todayArr = [];
-    let upcomingArr = [];
 
     inboxArr = myStorageArr[0].tasks;
-    todayArr = myStorageArr[1].tasks;
-    upcomingArr = myStorageArr[2].tasks;
+    myStorageArr[1].tasks = [];
 
     // If task is today and it isn't already in 'Today' push it.
 
     inboxArr.forEach((task) => {
-        let currTaskID = task.taskID;
         let dueDate = task.taskDueDate;
-        let isAdded = false;
         let parsedDueDate = parseISO(parse(dueDate, 'dd/MM/yyyy HH:mm', new Date()).toISOString());
 
         // If the tasks date is todays date proceed
         if (isToday(parsedDueDate)) {
-            // Find out if it's already been added to the Today array
-            todayArr.forEach((e)=>{
-                e.taskID === currTaskID ? isAdded = true : isAdded;
-            })
-
-            // if it has been print that it's been added
-            // if not add it to the array;
-            if(isAdded){
-                console.log('Items already added');
-            }else{
-                todayArr.push(task);
-            }
+            todayArr.push(task);
         }
 
     })
- 
+
+
     // Update the local storage to the new values
     myStorageArr[1].tasks = todayArr;
     myStorage.Projects = JSON.stringify(myStorageArr);
 
-    return {todayArr, inboxArr}
+    return { todayArr, inboxArr }
 
 }

@@ -10,61 +10,37 @@ import createTodoForm from './createTodoForm';
 
 export default function upcoming(){
     // Storage variables----
-    const myStorage = window.localStorage;
+    const myStorage = JSON.parse(window.localStorage.Projects);
     const storageKeys = Object.keys(myStorage);
 
+    // Array for the upcoming page
+    let upcomingArr = [];
 
     let todoForm;
     //DOM elements
     const main = document.querySelector('main');
     const ulForUpcoming = document.createElement('ul');
     addClassToElement(ulForUpcoming, 'task-list', 'upcoming');
-    const ul = document.querySelector('.task-list.upcoming')
-    const addTaskBtn = createAddTaskBtn();
-    const targetAddTaskBtn = document.querySelector('.add-task-btn');
-
     const title = document.createElement('h2')
  
     title.innerText = 'Upcoming';
 
     // Event listeners -------------------
-    addTaskBtn.onclick = () => {
-        // Remove the Add Task button
-        addTaskBtn.style.display = 'none';
-        // Create the form for adding new todos
-        todoForm = createTodoForm().formContainer;
-        // Create a li element to append to the main element
-        const li = createListElement();
-        // append the form to the new li element
-        li.appendChild(todoForm);
-        ulForUpcoming.insertBefore(li, addTaskBtn);
-    }
+    upcomingArr = myStorage[2].tasks;
+    console.log(upcomingArr);
+    upcomingArr.forEach((task) => {
+        let taskFromStorage = createTodoEntry(task.taskText, task.taskDescription, task.unformattedDate, task.taskDueDate, task.taskID);
+        taskFromStorage.taskParentContainer.classList.add(task.taskPriority);
+        let listElement = createListElement();
+        listElement.appendChild(taskFromStorage.taskParentContainer);
+        ulForUpcoming.appendChild(listElement);
+    })
 
     // Storage manipulation --------------
 
-    if (storageKeys.length > 0) {
-        let listElement;
-        let taskFromStorage;
-        // Parse the storage structure into an array
-        let parsedArr = JSON.parse(myStorage.Projects);
-        // Iterate through the parsed Array and find the 'Inbox' element
-        parsedArr.forEach((element) => {
-            if (element.name === 'Upcoming') {
-                // Iterate through the Today array and create the tasks and append to the DOM
-                element.tasks.forEach((task) => {
-                    taskFromStorage = createTodoEntry(task.taskText, task.taskDescription, task.taskDueDate, task.taskID);
-                    taskFromStorage.taskParentContainer.classList.add(task.taskPriority);
-                    listElement = createListElement();
-                    listElement.appendChild(taskFromStorage.taskParentContainer);
-                    ulForUpcoming.insertBefore(listElement, targetAddTaskBtn);
-                })
-            }
-        })
-    }
-
 
     // Appends -------------------
-    ulForUpcoming.appendChild(addTaskBtn);
+    // ulForUpcoming.appendChild(addTaskBtn);
     appendMultiple(main,
         title,
         ulForUpcoming)

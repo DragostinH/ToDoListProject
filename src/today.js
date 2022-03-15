@@ -7,6 +7,7 @@ import createListElement from './createListElement';
 import createStoreElements from './createStoredElements';
 import createTodoEntry from './createTodoEntry';
 import createTodoForm from './createTodoForm';
+import sortLocalStorage from './sortLocalStorage';
 import sortTodayStorage from './sortTodayStorage';
 
 export default function today() {
@@ -22,7 +23,6 @@ export default function today() {
     const main = document.querySelector('main');
     const ulForToday = document.createElement('ul');
     addClassToElement(ulForToday, 'task-list', 'today');
-    const ul = document.querySelector('.task-list.today')
     // const addTaskBtn = createAddTaskBtn();
     const targetAddTaskBtn = document.querySelector('.add-task-btn');
 
@@ -36,7 +36,6 @@ export default function today() {
     const todaysDate = format(new Date(), "E' ' d ' ' LLL")
     spanDate.innerText = `${todaysDate}`
     spanDate.classList.add('span-date');
-    title.appendChild(spanDate);
 
     // DOM manipulation  -------------------
     todayArray = myStorage[1].tasks;
@@ -46,18 +45,13 @@ export default function today() {
         taskFromStorage.taskParentContainer.classList.add(task.taskPriority);
         let listElement = createListElement();
         listElement.appendChild(taskFromStorage.taskParentContainer);
-        ulForToday.insertBefore(listElement, targetAddTaskBtn);
+        ulForToday.appendChild(listElement);
     })
-
-    // Storage manipulation --------------
-
-    if (storageKeys.length > 0) {
-        sortTodayStorage();
-    }
 
 
     // Appends -------------------
-    // ulForToday.appendChild(addTaskBtn);
+    title.appendChild(spanDate);
+
     appendMultiple(main,
         title,
         ulForToday)
