@@ -23,12 +23,15 @@ export default function sortSideBarStorage() {
     customProjectsArr.forEach((e) => {
 
         let btnContainer = createDiv();
+        btnContainer.classList.add('projectBtn-container');
 
         let deleteProjectBtn = document.createElement('button');
         deleteProjectBtn.innerText = 'X';
+        deleteProjectBtn.classList.add('delete-project-btn');
 
         let projectBtn = document.createElement('button');
         projectBtn.innerText = e.name;
+        projectBtn.classList.add('project-name-btn')
 
         let projectLiElement = document.createElement('li');
 

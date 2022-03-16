@@ -52,6 +52,7 @@ export default function createTodoForm(title) {
 
     // Create a container for the Post Task and Cancel buttons
     const formBtnContainer = createDiv();
+    formBtnContainer.classList.add('form-btn-container')
 
     // Create a button that adds the task;
     const postTaskBtn = document.createElement('button');
@@ -71,7 +72,7 @@ export default function createTodoForm(title) {
 
 
     // Set maximum number of characters inside of the text area
-    textArea.maxLength = 240;
+    textArea.maxLength = 120;
 
 
 

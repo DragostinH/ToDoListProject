@@ -33,9 +33,14 @@ export default function createTodoEntry(text, description, unformattedDate, dueD
         taskDueDate: dueDate
     }
 
+    const taskInfoContainer = createDiv();
+    taskInfoContainer.classList.add('task-info-container')
+
     const taskTextContainer = createDiv();
+    taskTextContainer.classList.add('taskTxt-container');
 
     const taskText = createTaskText(text);
+
 
     const taskDescription = createTaskDescription(description);
 
@@ -75,22 +80,29 @@ export default function createTodoEntry(text, description, unformattedDate, dueD
 
     // APPENDS ---------------------
 
+    // appendMultiple(taskTextContainer,
+    //     taskText,
+    //     taskDescription) 
+
+    taskInfoContainer.appendChild(taskTextContainer);
+    taskTextContainer.appendChild(taskText);
+    taskTextContainer.appendChild(taskDescription);
+
+
     dateDiv.appendChild(dateText);
 
-    appendMultiple(taskTextContainer,
-        taskText,
-        taskDescription,
+    appendMultiple(taskInfoContainer,
         dateDiv);
 
     appendMultiple(taskParentContainer,
         taskCheckmark,
-        taskTextContainer);
+        taskInfoContainer);
 
 
 
     return {
         taskParentContainer,
-        taskTextContainer,
+        taskTextContainer: taskInfoContainer,
         taskObject
     }
 

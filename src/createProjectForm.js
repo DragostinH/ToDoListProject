@@ -4,6 +4,7 @@ import createDiv from "./createDiv";
 export default function createProjectForm() {
 
     const btnContainer = createDiv();
+    btnContainer.classList.add('projectform-btn-container');
 
 
     const projectForm = document.createElement('form');
@@ -19,6 +20,7 @@ export default function createProjectForm() {
     addProjectBtn.innerText = 'Add';
     addProjectBtn.type = 'button';
     addProjectBtn.disabled = true;
+
     const cancelProjectBtn = document.createElement('button');
     cancelProjectBtn.classList.add('cancel-project-btn');
     cancelProjectBtn.innerText = 'Cancel';

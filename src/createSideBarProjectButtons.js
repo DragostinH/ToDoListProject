@@ -2,6 +2,7 @@ import checkIfProjectExists from "./checkIfProjectExists";
 import createDiv from "./createDiv";
 import createListElement from "./createListElement";
 import createProjectForm from "./createProjectForm";
+import showErrorPopup from "./showPopupError";
 import sortSideBarStorage from "./sortSideBarStorage";
 
 export default function createSideBarProjectButtons() {
@@ -41,7 +42,7 @@ export default function createSideBarProjectButtons() {
             sortSideBarStorage();
 
         }else{
-            alert('Cannot make projects with the same name')
+            showErrorPopup(projectTitle);
         }
 
     }
